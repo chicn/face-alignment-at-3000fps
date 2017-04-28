@@ -69,9 +69,9 @@ void Test(const char* config_file_path){
 		LoadImages(images, ground_truth_shapes, bboxes, image_path_prefixes, image_lists);
 		double error = 0.0;
 
-    // uint64_t start = mach_absolute_time();
-    // static mach_timebase_info_data_t sTimebaseInfo;
-    time_t start = time(NULL);
+    uint64_t start = mach_absolute_time();
+    static mach_timebase_info_data_t sTimebaseInfo;
+    // time_t start = time(NULL);
 
 		for (int i = 0; i < images.size(); i++){
 			cv::Mat_<double> current_shape = ReProjection(cas_load.params_.mean_shape_, bboxes[i]);
@@ -83,13 +83,18 @@ void Test(const char* config_file_path){
 		}
 		// std::cout << "error: " << error << ", mean error: " << error/images.size() << std::endl;
 
-    // uint64_t end = mach_absolute_time();
+    uint64_t end = mach_absolute_time();
     // printf("k1\n");
-    // uint64_t elapsed = end - start;
+    uint64_t elapsed = end - start;
+    if (sTimebaseInfo.denom == 0) {
+        (void)mach_timebase_info(&sTimebaseInfo);
+    }
     // printf("k2\n");
-    // uint64_t elapsedNano = elapsed * sTimebaseInfo.numer / sTimebaseInfo.denom;
-    // printf("k3\n");
-    // float milliSecond = elapsedNano / 1000.0f / 1000.0f;
+    uint64_t elapsedNano = elapsed * sTimebaseInfo.numer / sTimebaseInfo.denom;
+    printf("k3\n");
+    float milliSecond = elapsedNano / 1000.0f / 1000.0f;
+
+    std::cout << "ms: " << milliSecond << std::endl;
 
     // printf("koko\n");
     // printf("ms: %f\n", milliSecond);
@@ -98,11 +103,11 @@ void Test(const char* config_file_path){
     // std::cout << "ms: " << milliSecond << std::endl;
     // std::cout << "ms/pic: " << milliSecond / images.size() << std::endl;
 
-    time_t end = time(NULL);
-    float elapsed = end - start;
+    // time_t end = time(NULL);
+    // float elapsed = end - start;
 
-    std::cout << "s: " << elapsed << std::endl;
-    std::cout << "ms/pic: " << elapsed / images.size() * 1000.0 << std::endl;
+    // std::cout << "s: " << elapsed << std::endl;
+    // std::cout << "ms/pic: " << elapsed / images.size() * 1000.0 << std::endl;
 	}
 	else{
 		LoadImages(images, bboxes, image_path_prefixes, image_lists);
