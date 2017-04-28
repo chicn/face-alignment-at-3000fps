@@ -9,7 +9,7 @@ C_DEFINES =
 
 C_INCLUDES = -isystem /usr/local/include -isystem /usr/local/include/opencv 
 
-CXX_FLAGS =  -fopenmp  
+CXX_FLAGS =  
 
 CXX_DEFINES = 
 

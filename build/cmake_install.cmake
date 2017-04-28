@@ -1,4 +1,4 @@
-# Install script for directory: /Users/chihiro/Programs/Jolie-joli/research/object-tracking/lib/face-alignment-at-3000fps/face-alignment-at-3000fps
+# Install script for directory: /Users/chihiro/Programs/Jolie-joli/research/object-tracking/lib/3000fps/face-alignment-at-3000fps
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/chihiro/Programs/Jolie-joli/research/object-tracking/lib/face-alignment-at-3000fps/face-alignment-at-3000fps/release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/chihiro/Programs/Jolie-joli/research/object-tracking/lib/3000fps/face-alignment-at-3000fps/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

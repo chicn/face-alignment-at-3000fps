@@ -11,3 +11,7 @@
 ./ibug
 ./release
 **/.DS_Store
+./build/CMakeCache.txt
+./build/CMakeFiles
+./build/Makefile
+./build/cmake_install.cmake

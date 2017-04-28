@@ -5,6 +5,6 @@ set(source ./../liblinear/blas/blas.h ./../liblinear/blas/blasp.h ./../liblinear
 ./../headers.h ./../utils.h ./../randomforest.h ./../regressor.h ./../utils.cpp ./../randomforest.cpp ./../regressor.cpp ./../main.cpp)
 
 add_executable(application ${source})
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
 target_link_libraries(application ${OpenCV_LIBS})
