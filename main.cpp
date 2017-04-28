@@ -7,7 +7,10 @@
 #include "headers.h"
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <omp.h>
+//#include <omp.h>
+
+#include <mach/mach_time.h>
+#include <time.h>
 
 using namespace cv;
 using namespace std;
@@ -17,7 +20,8 @@ void DrawPredictedImage(cv::Mat_<uchar> image, cv::Mat_<double>& shape){
 		cv::circle(image, cv::Point2f(shape(i, 0), shape(i, 1)), 2, (255));
 	}
 	cv::imshow("show image", image);
-	cv::waitKey(0);
+  // cv::waitKey(0);
+	cv::waitKey(1);
 }
 
 void Test(const char* config_file_path){
@@ -64,15 +68,41 @@ void Test(const char* config_file_path){
 	if (images_has_ground_truth) {
 		LoadImages(images, ground_truth_shapes, bboxes, image_path_prefixes, image_lists);
 		double error = 0.0;
+
+    // uint64_t start = mach_absolute_time();
+    // static mach_timebase_info_data_t sTimebaseInfo;
+    time_t start = time(NULL);
+
 		for (int i = 0; i < images.size(); i++){
 			cv::Mat_<double> current_shape = ReProjection(cas_load.params_.mean_shape_, bboxes[i]);
 	        cv::Mat_<double> res = cas_load.Predict(images[i], current_shape, bboxes[i]);//, ground_truth_shapes[i]);
-			double e = CalculateError(ground_truth_shapes[i], res);
+			// double e = CalculateError(ground_truth_shapes[i], res);
 			// std::cout << "error:" << e << std::endl;
-			error += e;
+			// error += e;
 	        // DrawPredictedImage(images[i], res);
 		}
-		std::cout << "error: " << error << ", mean error: " << error/images.size() << std::endl;
+		// std::cout << "error: " << error << ", mean error: " << error/images.size() << std::endl;
+
+    // uint64_t end = mach_absolute_time();
+    // printf("k1\n");
+    // uint64_t elapsed = end - start;
+    // printf("k2\n");
+    // uint64_t elapsedNano = elapsed * sTimebaseInfo.numer / sTimebaseInfo.denom;
+    // printf("k3\n");
+    // float milliSecond = elapsedNano / 1000.0f / 1000.0f;
+
+    // printf("koko\n");
+    // printf("ms: %f\n", milliSecond);
+    // printf("ms/pic: %f\n", milliSecond / images.size());
+
+    // std::cout << "ms: " << milliSecond << std::endl;
+    // std::cout << "ms/pic: " << milliSecond / images.size() << std::endl;
+
+    time_t end = time(NULL);
+    float elapsed = end - start;
+
+    std::cout << "s: " << elapsed << std::endl;
+    std::cout << "ms/pic: " << elapsed / images.size() * 1000.0 << std::endl;
 	}
 	else{
 		LoadImages(images, bboxes, image_path_prefixes, image_lists);

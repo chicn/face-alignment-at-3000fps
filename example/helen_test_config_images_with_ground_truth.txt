@@ -1,4 +1,4 @@
-helenModel
+../example/helen_trained_model/helenModel
 1
 1
 ../example/helen/testset/
